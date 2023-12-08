@@ -759,13 +759,15 @@ predictions = target_scaler.inverse_transform(scaled_predictions)
 print(predictions, housing_labels.iloc[:5])
 
 
-# In[89]:
+# In[1]:
 
 
 # extra code – computes the error ratios discussed in the book
 error_ratios = housing_predictions[:5].round(-2) / housing_labels.iloc[:5].values - 1
 print(", ".join([f"{100 * ratio:.1f}%" for ratio in error_ratios]))
 
+
+# This additional code presented an error when running. I believe it's because we did not define the variable 'housing_predictions' earlier in the code.
 
 # ### Step 8: Cross Validation
 # 
@@ -995,8 +997,6 @@ print(accuracy)
 # ## Task 5-2: Introducing the Tensorflow Playground
 # 
 # Before you go, let's play a little bit more with Neural Networks. There is an excellent online resource for this. Go to [playground.tensorflow.org](https://playground.tensorflow.org/). A screenshot is provided below should it help to verify that you have navigated to the right place!
-# 
-# ![Tensorflow Playground Screenshot](attachment:tensorflow_playground.png "Tensorflow Playground")
 # 
 # Change your data type to "spiral" by clicking on the picture for spiral data on the lefthand side. 
 # - The idea is that the point of orange colour is one class and the ones of blue colour is another class. 

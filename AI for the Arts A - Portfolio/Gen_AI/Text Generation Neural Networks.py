@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# **GUID:** 2507608
+# 
+# **GitHub URL:** (https://github.com/lordofanywhere/ai-for-the-arts-a/)[https://github.com/lordofanywhere/ai-for-the-arts-a/]
+
 # # Generating Text with Neural Networks
 # 
 # This notebook will showcase a generative AI model which can learn how to write in the style of William Shakespeare.
@@ -20,7 +24,7 @@
 # 
 # Play the following video to understand how Neural Networks work:
 
-# In[52]:
+# In[1]:
 
 
 from IPython.display import YouTubeVideo
@@ -40,7 +44,7 @@ YouTubeVideo('rEDzUT3ymw4', width=800, height=450)
 # 
 # TensorFlow will store the data locally as the variable `shakespeare_text`.
 
-# In[1]:
+# In[2]:
 
 
 import tensorflow as tf
@@ -59,7 +63,7 @@ with open(filepath) as f:
 # 
 # Try changing the value `1000` for any other number and run the code. You will be able to see all the characters in the dataset up to the character point you have set. By default, the code shows 1000 characters.
 
-# In[22]:
+# In[3]:
 
 
 print(shakespeare_text[:1000]) # not relevant to machine learning but relevant to exploring the data
@@ -75,7 +79,7 @@ print(shakespeare_text[:1000]) # not relevant to machine learning but relevant t
 # 
 # The `TextVectorization` layers are non-trainable. We must set their state before training the model. We are doing so by "adapting them", or exposing the preprocessing layer to traing data. We use the `adapt()` method for this.
 
-# In[5]:
+# In[4]:
 
 
 text_vec_layer = tf.keras.layers.TextVectorization(split="character",
@@ -86,7 +90,7 @@ encoded = text_vec_layer([shakespeare_text])[0]
 
 # Running the code below will show you the characters of the dataset represented numerically. The dataset now looks completely different and it is no longer human-readable.
 
-# In[6]:
+# In[5]:
 
 
 print(text_vec_layer([shakespeare_text]))
@@ -96,7 +100,7 @@ print(text_vec_layer([shakespeare_text]))
 # 
 # We will calculate the number of distinct characters and the total number of characters in the dataset.
 
-# In[7]:
+# In[6]:
 
 
 encoded -= 2  # drop tokens 0 (pad) and 1 (unknown), which we will not use
@@ -106,7 +110,7 @@ dataset_size = len(encoded)  # total number of chars = 1,115,394
 
 # We can use the `print()` function to see the number of distinct characters and the total number of characters:
 
-# In[8]:
+# In[7]:
 
 
 print(n_tokens, dataset_size)
@@ -116,7 +120,7 @@ print(n_tokens, dataset_size)
 # 
 # Here, we could shuffle the dataset to enhance randomness during training, but we have not done so in the code below.
 
-# In[9]:
+# In[8]:
 
 
 def to_dataset(sequence, length, shuffle=False, seed=None, batch_size=32):
@@ -143,7 +147,7 @@ def to_dataset(sequence, length, shuffle=False, seed=None, batch_size=32):
 # 
 # It is generally good practice to shuffle the dataset before training,⁷ and it helps to reduce order bias, promote generalisation, prevent overfitting, stabilise learning, improve regularisation, and adapting to new examples while maintaining a balanced distribution of old and new data.⁸
 
-# In[10]:
+# In[9]:
 
 
 length = 100
@@ -166,7 +170,7 @@ test_set = to_dataset(encoded[1_060_000:], length=length)
 # 
 # Be patient when the code below: you can go and make yourself a cup of tea, but make sure that your computer does not go to sleep or the process may be interrupted.
 
-# In[11]:
+# In[10]:
 
 
 tf.random.set_seed(42)  # extra code – ensures reproducibility on CPU
@@ -189,7 +193,7 @@ history = model.fit(train_set, validation_data=valid_set, epochs=10,
 # 
 # One of the layers of our Keras Sequential model is a Lambda layer, which allows us to use arbitrary expresions as a `Layer` when building Sequential and Functional API models. `Lambda` layers are used for experimentation or simple operations,¹¹ like the simple neural network model we have built.
 
-# In[12]:
+# In[11]:
 
 
 shakespeare_model = tf.keras.Sequential([
@@ -205,7 +209,7 @@ shakespeare_model = tf.keras.Sequential([
 # 
 # To do all of these computations, the model uses the encoded dataset, so it will need to refer back to our vectorised text layer (`text_vec_layer`).
 
-# In[13]:
+# In[12]:
 
 
 y_proba = shakespeare_model.predict(["To be or not to b"])[0, -1]
@@ -217,7 +221,7 @@ text_vec_layer.get_vocabulary()[y_pred + 2]
 # 
 # The `categorical()` function will sample random class indices, given the class log probabilities (logits).¹²
 
-# In[ ]:
+# In[13]:
 
 
 log_probas = tf.math.log([[0.5, 0.4, 0.1]])  # probas = 50%, 40%, and 10%
@@ -231,7 +235,7 @@ tf.random.categorical(log_probas, num_samples=8)  # draw 8 samples
 # 
 # We will play with the temperature further below to see the different results.
 
-# In[15]:
+# In[14]:
 
 
 def next_char(text, temperature=1):
@@ -245,10 +249,10 @@ def next_char(text, temperature=1):
 # 
 # We can change hte `n_chars` value from `50` to whatever number of characters we want for our output. If you do so, remember to run the code again.
 
-# In[45]:
+# In[18]:
 
 
-def extend_text(text, n_chars=100, temperature=1):
+def extend_text(text, n_chars=50, temperature=1):
     for _ in range(n_chars):
         text += next_char(text, temperature)
     return text
@@ -256,7 +260,7 @@ def extend_text(text, n_chars=100, temperature=1):
 
 # We will add the following code to ensure reproducibility every time the code is run:
 
-# In[46]:
+# In[19]:
 
 
 tf.random.set_seed(42)  # extra code – ensures reproducibility on CPU
@@ -280,19 +284,19 @@ tf.random.set_seed(42)  # extra code – ensures reproducibility on CPU
 # 
 # Remember that a temperature close to 0 will return high-probability characters, so the higher the temperature, the more random the output will be.
 
-# In[51]:
+# In[20]:
 
 
 print(extend_text("To be, or not to be", temperature=0.01))
 
 
-# In[50]:
+# In[21]:
 
 
 print(extend_text("The lady doth protest too much", temperature=1))
 
 
-# In[49]:
+# In[22]:
 
 
 print(extend_text("Uneasy is the head that wears a crown", temperature=100))

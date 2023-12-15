@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# **GUID:** 2507608
+# 
+# **GitHub URL:** (https://github.com/lordofanywhere/ai-for-the-arts-a/)[https://github.com/lordofanywhere/ai-for-the-arts-a/]
+
 # # Week 1: Getting started with Anaconda, Jupyter Notebook and Python
 # 
 # Exercises o familiarise myself with Jupyter Notebook and its relationship with Python
@@ -16,87 +20,87 @@
 #         - Use AI tools practically tocreate art
 #         - Technical, social and cultural dimensions of the use of AI
 
-# In[5]:
+# In[ ]:
 
 
 print ("Hello World!")
 
 
-# In[6]:
+# In[ ]:
 
 
 message = "Hello World!"
 print (message)
 
 
-# In[7]:
+# In[ ]:
 
 
 message = "Hello World, my name is Emilio! This is my first incursion into AI"
 print (message)
 
 
-# In[8]:
+# In[ ]:
 
 
 message = "Hello World, my name is Emilio! This is my first incursion into AI"
 print (message + message)
 
 
-# In[9]:
+# In[ ]:
 
 
 message = "Hello World, my name is Emilio! This is my first incursion into AI"
 print (message*3)
 
 
-# In[10]:
+# In[ ]:
 
 
 message = "Hello World, my name is Emilio! This is my first incursion into AI"
 print (message[0])
 
 
-# In[11]:
+# In[ ]:
 
 
 message = "Hello World, my name is Emilio! This is my first incursion into AI"
 print (message[2])
 
 
-# In[12]:
+# In[ ]:
 
 
 message = "Hello World, my name is Emilio! This is my first incursion into AI"
 print (message[1])
 
 
-# In[13]:
+# In[ ]:
 
 
 greeting = "Hello World!"
 print (greeting)
 
 
-# In[14]:
+# In[ ]:
 
 
 print (message + greeting)
 
 
-# In[15]:
+# In[ ]:
 
 
 from IPython.display import *
 
 
-# In[16]:
+# In[ ]:
 
 
 YouTubeVideo("4eA-X4P5EBo")
 
 
-# In[17]:
+# In[ ]:
 
 
 import webbrowser
@@ -120,31 +124,31 @@ except:
 
 # # Week 2: Exploring Data in Multiple Ways
 
-# In[18]:
+# In[ ]:
 
 
 from IPython.display import Image
 
 
-# In[23]:
+# In[ ]:
 
 
 Image ("picture1.jpg")
 
 
-# In[24]:
+# In[ ]:
 
 
 Image ("picture1.jpg")
 
 
-# In[27]:
+# In[ ]:
 
 
 Audio ("audio1.mid")
 
 
-# In[31]:
+# In[ ]:
 
 
 Audio ("audio2.ogg")
@@ -152,7 +156,7 @@ Audio ("audio2.ogg")
 
 # The OGG file plays but the MID file does not play, probably due to the codecs and libraries available on the local computer used.
 
-# In[32]:
+# In[ ]:
 
 
 # This file is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license.
@@ -166,13 +170,13 @@ Audio ("audio2.ogg")
 # https://en.wikipedia.org/wiki/File:GoldbergVariations_MehmetOkonsar-1of3_Var1to10.ogg
 
 
-# In[36]:
+# In[ ]:
 
 
 from matplotlib import pyplot
 
 
-# In[37]:
+# In[ ]:
 
 
 from matplotlib import pyplot
@@ -181,13 +185,13 @@ print("Numpy array of the image is: ", test_picture)
 pyplot.imshow(test_picture)
 
 
-# In[43]:
+# In[ ]:
 
 
 test_picture_filtered = 2*test_picture/3
 
 
-# In[44]:
+# In[ ]:
 
 
 pyplot.imshow(test_picture_filtered)
@@ -197,13 +201,13 @@ pyplot.imshow(test_picture_filtered)
 
 # # Week 3: Exploring scikit-learn (a.k.a sklearn)
 
-# In[3]:
+# In[ ]:
 
 
 from sklearn import datasets
 
 
-# In[4]:
+# In[ ]:
 
 
 dir(datasets)
@@ -211,67 +215,67 @@ dir(datasets)
 
 # I have chosen 'load_breast_cancer' and 'load_diabetes' as I am curious as to what these mean in this context.
 
-# In[5]:
+# In[ ]:
 
 
 breast_cancer_data = datasets.load_breast_cancer()
 
 
-# In[6]:
+# In[ ]:
 
 
 diabetes_data = datasets.load_diabetes()
 
 
-# In[7]:
+# In[ ]:
 
 
 breast_cancer_data.DESCR
 
 
-# In[8]:
+# In[ ]:
 
 
 print(breast_cancer_data.DESCR)
 
 diabetes_data.DESCR
-# In[9]:
+# In[ ]:
 
 
 print(diabetes_data.DESCR)
 
 
-# In[10]:
+# In[ ]:
 
 
 breast_cancer_data.feature_names
 
 
-# In[11]:
+# In[ ]:
 
 
 diabetes_data.feature_names
 
 
-# In[12]:
+# In[ ]:
 
 
 breast_cancer_data.target_names
 
 
-# In[13]:
+# In[ ]:
 
 
 diabetes_data.keys()
 
 
-# In[46]:
+# In[ ]:
 
 
 diabetes_data.target
 
 
-# In[14]:
+# In[ ]:
 
 
 from sklearn import datasets
@@ -282,49 +286,49 @@ breast_cancer_data = datasets.load_breast_cancer()
 breast_cancer_dataframe = pandas.DataFrame(data=breast_cancer_data['data'], columns = breast_cancer_data['feature_names'])
 
 
-# In[15]:
+# In[ ]:
 
 
 breast_cancer_dataframe.head()
 
 
-# In[16]:
+# In[ ]:
 
 
 breast_cancer_dataframe.describe
 
 
-# In[21]:
+# In[ ]:
 
 
 wine_data = datasets.load_wine()
 
 
-# In[22]:
+# In[ ]:
 
 
 wine_data.DESCR
 
 
-# In[23]:
+# In[ ]:
 
 
 print(wine_data.DESCR)
 
 
-# In[24]:
+# In[ ]:
 
 
 wine_data.feature_names
 
 
-# In[25]:
+# In[ ]:
 
 
 wine_data.keys()
 
 
-# In[38]:
+# In[ ]:
 
 
 from sklearn import datasets
@@ -335,13 +339,13 @@ wine_data = datasets.load_wine()
 wine_dataframe = pandas.DataFrame(data=wine_data['data'], columns = wine_data['feature_names'])
 
 
-# In[39]:
+# In[ ]:
 
 
 wine_dataframe.head()
 
 
-# In[40]:
+# In[ ]:
 
 
 wine_dataframe.describe()
@@ -351,7 +355,7 @@ wine_dataframe.describe()
 # 
 # I believe that the command wine_dataframe.head() creates a table for the elements on the database, and apply headers based on the attributes of the data stored.
 # 
-# The command wine_dataframe.describe() describe some statistics of the dataset.
+# The command wine_dataframe.describe() describes some statistics of the dataset.
 
 # ## Discussion: Thinking about data bias
 

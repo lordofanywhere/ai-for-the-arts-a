@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>2507608_AILab_Week_1</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Text Generation Neural Networks</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14593,29 +14593,39 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Week-1:-Getting-started-with-Anaconda,-Jupyter-Notebook-and-Python">Week 1: Getting started with Anaconda, Jupyter Notebook and Python<a class="anchor-link" href="#Week-1:-Getting-started-with-Anaconda,-Jupyter-Notebook-and-Python">&#182;</a></h1><p>Exercises o familiarise myself with Jupyter Notebook and its relationship with Python</p>
-<p><strong>a)    Why you chose to join this course – for, motivation, vision, aspiration?</strong>
-        I chose this course because I am very excited about the progress in AI technologies andc its potential for change the way we create and curate art.</p>
-<p><strong>b)    Prior experience, if any, you have with AI and/or Python</strong> 
-        No, this is the first time I use Python. I have used generative AI tools, however.</p>
-<p><strong>c)    What you expect to learn from the course (aim for 3-5 bullet points)</strong></p>
-
-<pre><code>    - The different types of AI and how they can be used to create and curate art
-    - Use AI tools practically tocreate art
-    - Technical, social and cultural dimensions of the use of AI</code></pre>
+<h1 id="Generating-Text-with-Neural-Networks">Generating Text with Neural Networks<a class="anchor-link" href="#Generating-Text-with-Neural-Networks">&#182;</a></h1><p>This notebook will showcase a generative AI model which can learn how to write in the style of William Shakespeare.</p>
+<p>In this notebook, I am following the Machine Learning Project Checklist provided by Aurélien Géron in the Appendix B of <em>Hands-on machine learning with Scikit-Learn, Keras, and TensorFlow: concepts, tools, and techniques to build intelligent systems</em>.¹ The notebook sections follow this checklist, which has been slightly adapted for this educational project.</p>
 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="1.-Framing-the-problem-and-looking-at-the-big-picture">1. Framing the problem and looking at the big picture<a class="anchor-link" href="#1.-Framing-the-problem-and-looking-at-the-big-picture">&#182;</a></h1><p>Before deciding on a model to follow, it is important that we understand the problem and define it. In the case of commercial solutions, we can do so in business terms.</p>
+<p>For the model we will build, a way of framing the problem could be asking ourselves the following question: "How would Shakespeare reply to any text-based prompt?"</p>
+<p>We should consider how the solution will be intended to be used, if there are any current workarounds to achieve what our solution intends to achieve, and if there are other solutions that could achieve better results.</p>
+<p>For this model, we have chosen to use Character Recurrent Neural Networks (char-RNN).</p>
+<p>Play the following video to understand how Neural Networks work:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">"Hello World!"</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
+
+<span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">'rEDzUT3ymw4'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14623,16 +14633,80 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+
+        <iframe
+            width="800"
+            height="450"
+            src="https://www.youtube.com/embed/rEDzUT3ymw4"
+            frameborder="0"
+            allowfullscreen
+            
+        ></iframe>
+        
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Neural networks are powerful architectures that can be used for many different generative and self-learning tasks. Char-RNN can be used to predict the next character in a sentence and generate new text, character by character, based on the training data.² For this reason, char-RNN seems like a suitable model to answer our question.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="2.-Getting-the-Data">2. Getting the Data<a class="anchor-link" href="#2.-Getting-the-Data">&#182;</a></h1><p>To build a model, we need to identify a dataset that we can use to train and test the model. As we are working with plays by William Shakespeare, a suitable dataset would be a text document with many (or all, if possible) of the plays he wrote. For this exercise, Aurélien Géron has curated a dataset that we will use.</p>
+<p>In the following cell, we will import the dataset to our model. The dataset will be imported from <a href="https://homl.info/shakespeare">https://homl.info/shakespeare</a>, but we strongly discourage looking at the full dataset at this stage in order to prevent unconscious bias to creep into our model.</p>
+<p>We use the open source library TensorFlow, created by the Google Brain team and released in 2015. This library simplifies the process of acquiring training data, training the model, presenting results and refining the model.³</p>
+<p>TensorFlow will store the data locally as the variable <code>shakespeare_text</code>.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s2">"Hello World!"</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="n">shakespeare_url</span> <span class="o">=</span> <span class="s2">"https://homl.info/shakespeare"</span>  <span class="c1"># shortcut URL</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_file</span><span class="p">(</span><span class="s2">"shakespeare.txt"</span><span class="p">,</span> <span class="n">shakespeare_url</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">shakespeare_text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14640,16 +14714,64 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>2023-12-10 19:28:49.372004: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>When running the code displayed above, TensorFlow will show a red warning. This is not an error message and it does not require any user action. TenshorFlow is simply letting us know that it will take advantage of our GPU in order to speed up the process.⁴</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="3.-Exploring-the-Data-to-gain-insights">3. Exploring the Data to gain insights<a class="anchor-link" href="#3.-Exploring-the-Data-to-gain-insights">&#182;</a></h1><p>Below, we can explore our dataset.</p>
+<p>Try changing the value <code>1000</code> for any other number and run the code. You will be able to see all the characters in the dataset up to the character point you have set. By default, the code shows 1000 characters.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s2">"Hello World, my name is Emilio! This is my first incursion into AI"</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">message</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">shakespeare_text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span> <span class="c1"># not relevant to machine learning but relevant to exploring the data</span>
 </pre></div>
 
      </div>
@@ -14657,181 +14779,96 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>First Citizen:
+Before we proceed any further, hear me speak.
+
+All:
+Speak, speak.
+
+First Citizen:
+You are all resolved rather to die than to famish?
+
+All:
+Resolved. resolved.
+
+First Citizen:
+First, you know Caius Marcius is chief enemy to the people.
+
+All:
+We know&#39;t, we know&#39;t.
+
+First Citizen:
+Let us kill him, and we&#39;ll have corn at our own price.
+Is&#39;t a verdict?
+
+All:
+No more talking on&#39;t; let it be done: away, away!
+
+Second Citizen:
+One word, good citizens.
+
+First Citizen:
+We are accounted poor citizens, the patricians good.
+What authority surfeits on would relieve us: if they
+would yield us but the superfluity, while it were
+wholesome, we might guess they relieved us humanely;
+but they think we are too dear: the leanness that
+afflicts us, the object of our misery, is as an
+inventory to particularise their abundance; our
+sufferance is a gain to them Let us revenge this with
+our pikes, ere we become rakes: for the gods know I
+speak this in hunger for bread, not in thirst for revenge.
+
+
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="4.-Preparing-the-Data">4. Preparing the Data<a class="anchor-link" href="#4.-Preparing-the-Data">&#182;</a></h1><p>It is recommended that we work on copies on the data, so that we do not modify the original dataset and can revert to it at any point. In this case, the dataset is hosted in a third party web storage, and we can import it again if we need to.</p>
+<p>We will preprocess the text data using <code>tf.keras.layers.TextVectorization</code>, which is a preprocessing layer that converts text strings into an integer-based representation that can be read by an <code>Embedding</code> layer or <code>Dense</code> layer.⁵</p>
+<p>We're splitting the input text on each unicode character, and we are standardising it so that it uses lowercase throughout.</p>
+<p>The <code>TextVectorization</code> layers are non-trainable. We must set their state before training the model. We are doing so by "adapting them", or exposing the preprocessing layer to traing data. We use the <code>adapt()</code> method for this.</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s2">"Hello World, my name is Emilio! This is my first incursion into AI"</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">message</span> <span class="o">+</span> <span class="n">message</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s2">"Hello World, my name is Emilio! This is my first incursion into AI"</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">message</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s2">"Hello World, my name is Emilio! This is my first incursion into AI"</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s2">"Hello World, my name is Emilio! This is my first incursion into AI"</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s2">"Hello World, my name is Emilio! This is my first incursion into AI"</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">greeting</span> <span class="o">=</span> <span class="s2">"Hello World!"</span>
-<span class="nb">print</span> <span class="p">(</span><span class="n">greeting</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">message</span> <span class="o">+</span> <span class="n">greeting</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="o">*</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s2">"4eA-X4P5EBo"</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">webbrowser</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Shall we hunt down an old website?"</span><span class="p">)</span>
-<span class="n">site</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"Type a website URL: "</span><span class="p">)</span>
-<span class="n">era</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">"Type year, month, and date, e.g., 20150613: "</span><span class="p">)</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">"http://archive.org/wayback/available?url=</span><span class="si">%s</span><span class="s2">&amp;timestamp=</span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">era</span><span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">old_site</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"archived_snapshots"</span><span class="p">][</span><span class="s2">"closest"</span><span class="p">][</span><span class="s2">"url"</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Found this copy: "</span><span class="p">,</span> <span class="n">old_site</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"It should appear in your browser."</span><span class="p">)</span>
-    <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">old_site</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Sorry, could not find the site."</span><span class="p">)</span>
-<span class="c1"># anotating comments</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text_vec_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">TextVectorization</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="s2">"character"</span><span class="p">,</span>
+                                                   <span class="n">standardize</span><span class="o">=</span><span class="s2">"lower"</span><span class="p">)</span>
+<span class="n">text_vec_layer</span><span class="o">.</span><span class="n">adapt</span><span class="p">([</span><span class="n">shakespeare_text</span><span class="p">])</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">text_vec_layer</span><span class="p">([</span><span class="n">shakespeare_text</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -14846,19 +14883,20 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Week-2:-Exploring-Data-in-Multiple-Ways">Week 2: Exploring Data in Multiple Ways<a class="anchor-link" href="#Week-2:-Exploring-Data-in-Multiple-Ways">&#182;</a></h1>
+<p>Running the code below will show you the characters of the dataset represented numerically. The dataset now looks completely different and it is no longer human-readable.</p>
+
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">text_vec_layer</span><span class="p">([</span><span class="n">shakespeare_text</span><span class="p">]))</span>
 </pre></div>
 
      </div>
@@ -14866,63 +14904,53 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>tf.Tensor([[21  7 10 ... 22 28 12]], shape=(1, 1115394), dtype=int64)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We will now drop the tokens <code>0</code>, which are assign to padding, and <code>1</code>, assigned to unknown characters. We will not use these.</p>
+<p>We will calculate the number of distinct characters and the total number of characters in the dataset.</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Image</span> <span class="p">(</span><span class="s2">"picture1.jpg"</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Image</span> <span class="p">(</span><span class="s2">"picture1.jpg"</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Audio</span> <span class="p">(</span><span class="s2">"audio1.mid"</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Audio</span> <span class="p">(</span><span class="s2">"audio2.ogg"</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">encoded</span> <span class="o">-=</span> <span class="mi">2</span>  <span class="c1"># drop tokens 0 (pad) and 1 (unknown), which we will not use</span>
+<span class="n">n_tokens</span> <span class="o">=</span> <span class="n">text_vec_layer</span><span class="o">.</span><span class="n">vocabulary_size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span>  <span class="c1"># number of distinct chars = 39</span>
+<span class="n">dataset_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span>  <span class="c1"># total number of chars = 1,115,394</span>
 </pre></div>
 
      </div>
@@ -14937,28 +14965,20 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The OGG file plays but the MID file does not play, probably due to the codecs and libraries available on the local computer used.</p>
+<p>We can use the <code>print()</code> function to see the number of distinct characters and the total number of characters:</p>
 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This file is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license.</span>
-<span class="c1"># You are free: </span>
-<span class="c1"># •	to share – to copy, distribute and transmit the work</span>
-<span class="c1"># •	to remix – to adapt the work</span>
-<span class="c1"># Under the following conditions: </span>
-<span class="c1"># •	attribution – You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</span>
-<span class="c1"># •	share alike – If you remix, transform, or build upon the material, you must distribute your contributions under the same or compatible license as the original.</span>
-<span class="c1"># The original ogg file was found at the url: </span>
-<span class="c1"># https://en.wikipedia.org/wiki/File:GoldbergVariations_MehmetOkonsar-1of3_Var1to10.ogg</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">n_tokens</span><span class="p">,</span> <span class="n">dataset_size</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14966,66 +14986,58 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>39 1115394
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We will now define the function <code>to_dataset</code>. It will convert the encoded text sequences into a dataset that we can use to train our model. <code>to_dataset</code> segments the text and organises it into batches of a overlapping sequences.⁶</p>
+<p>Here, we could shuffle the dataset to enhance randomness during training, but we have not done so in the code below.</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
-<span class="n">test_picture</span> <span class="o">=</span> <span class="n">pyplot</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">"picture1.jpg"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Numpy array of the image is: "</span><span class="p">,</span> <span class="n">test_picture</span><span class="p">)</span>
-<span class="n">pyplot</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">test_picture</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_picture_filtered</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">test_picture</span><span class="o">/</span><span class="mi">3</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pyplot</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">test_picture_filtered</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">to_dataset</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">drop_remainder</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">window_ds</span><span class="p">:</span> <span class="n">window_ds</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">shuffle</span><span class="p">:</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">100_000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">window</span><span class="p">:</span> <span class="p">(</span><span class="n">window</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">window</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]))</span><span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15040,19 +15052,17 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>In this plot chart, I believe we can see the image, with the CMY (cyan–magenta–yellow) colour points filtered.</p>
+<p>We will now create the training, validation and test datasets.</p>
+<p>As our dataset has a total of <code>1115394</code> characters, we will divide it as such:</p>
+<ul>
+<li>Training dataset (<code>train_set</code>): 1,000,000 characters</li>
+<li>Validation dataset (<code>valid_set</code>): 60,000 characters</li>
+<li>Test dataset (<code>test_set</code>): up to 60,000 characters</li>
+</ul>
+<p>The test dataset will be short of 60,000 characters, as our dataset does not have 1,120,000 characters, but this should not be a problem.</p>
+<p>We will randomise the training set (note the <code>shuffle=True</code> in the code). This should allow the neural network to learn from a more representative sample from each batch, which should result in better performance and generalisation.</p>
+<p>It is generally good practice to shuffle the dataset before training,⁷ and it helps to reduce order bias, promote generalisation, prevent overfitting, stabilise learning, improve regularisation, and adapting to new examples while maintaining a balanced distribution of old and new data.⁸</p>
 
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Week-3:-Exploring-scikit-learn-(a.k.a-sklearn)">Week 3: Exploring scikit-learn (a.k.a sklearn)<a class="anchor-link" href="#Week-3:-Exploring-scikit-learn-(a.k.a-sklearn)">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -15061,26 +15071,15 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">length</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">train_set</span> <span class="o">=</span> <span class="n">to_dataset</span><span class="p">(</span><span class="n">encoded</span><span class="p">[:</span><span class="mi">1_000_000</span><span class="p">],</span> <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">valid_set</span> <span class="o">=</span> <span class="n">to_dataset</span><span class="p">(</span><span class="n">encoded</span><span class="p">[</span><span class="mi">1_000_000</span><span class="p">:</span><span class="mi">1_060_000</span><span class="p">],</span> <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">)</span>
+<span class="n">test_set</span> <span class="o">=</span> <span class="n">to_dataset</span><span class="p">(</span><span class="n">encoded</span><span class="p">[</span><span class="mi">1_060_000</span><span class="p">:],</span> <span class="n">length</span><span class="o">=</span><span class="n">length</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15095,7 +15094,296 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>I have chosen 'load_breast_cancer' and 'load_diabetes' as I am curious as to what these mean in this context.</p>
+<h1 id="5.-Exploring-different-models-and-choose-the-best-one">5. Exploring different models and choose the best one<a class="anchor-link" href="#5.-Exploring-different-models-and-choose-the-best-one">&#182;</a></h1><p>When exploring a problem, it is recommended to train many different models with small samples of training data and measure and compare their performance. This will help us choose the model that best performs for the goal we are set to achieve, as well as the type of errors the models make.</p>
+<p>We will skip this step in our example, but it is good practice for more complex problems where different models could be used.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="6.-Fine-tuning:-Building,-Training-and-Testing-the-Model">6. Fine-tuning: Building, Training and Testing the Model<a class="anchor-link" href="#6.-Fine-tuning:-Building,-Training-and-Testing-the-Model">&#182;</a></h1><p>We will now train our neural network model in 10 epochs or dataset batches. Training AI models is compute-intensive and time-consuming.⁹ Our Shakespeare model is simple, but it will take some time and computational power to train it nonetheless.</p>
+<p>Be patient when the code below: you can go and make yourself a cup of tea, but make sure that your computer does not go to sleep or the process may be interrupted.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># extra code – ensures reproducibility on CPU</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">n_tokens</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">16</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GRU</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="n">return_sequences</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">n_tokens</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"softmax"</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">"sparse_categorical_crossentropy"</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">"nadam"</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">])</span>
+<span class="n">model_ckpt</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
+    <span class="s2">"my_shakespeare_model"</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s2">"val_accuracy"</span><span class="p">,</span> <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">valid_set</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">model_ckpt</span><span class="p">])</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Epoch 1/10
+  31247/Unknown - 852s 27ms/step - loss: 1.3938 - accuracy: 0.5738INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>31247/31247 [==============================] - 875s 28ms/step - loss: 1.3938 - accuracy: 0.5738 - val_loss: 1.6123 - val_accuracy: 0.5314
+Epoch 2/10
+31247/31247 [==============================] - ETA: 0s - loss: 1.2954 - accuracy: 0.5969INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>31247/31247 [==============================] - 856s 27ms/step - loss: 1.2954 - accuracy: 0.5969 - val_loss: 1.5911 - val_accuracy: 0.5374
+Epoch 3/10
+31246/31247 [============================&gt;.] - ETA: 0s - loss: 1.2785 - accuracy: 0.6004INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>31247/31247 [==============================] - 858s 27ms/step - loss: 1.2785 - accuracy: 0.6004 - val_loss: 1.5712 - val_accuracy: 0.5433
+Epoch 4/10
+31245/31247 [============================&gt;.] - ETA: 0s - loss: 1.2680 - accuracy: 0.6025INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>31247/31247 [==============================] - 837s 27ms/step - loss: 1.2680 - accuracy: 0.6025 - val_loss: 1.5676 - val_accuracy: 0.5443
+Epoch 5/10
+31247/31247 [==============================] - ETA: 0s - loss: 1.2614 - accuracy: 0.6041INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>31247/31247 [==============================] - 841s 27ms/step - loss: 1.2614 - accuracy: 0.6041 - val_loss: 1.5623 - val_accuracy: 0.5453
+Epoch 6/10
+31246/31247 [============================&gt;.] - ETA: 0s - loss: 1.2570 - accuracy: 0.6049INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>31247/31247 [==============================] - 837s 27ms/step - loss: 1.2569 - accuracy: 0.6049 - val_loss: 1.5670 - val_accuracy: 0.5467
+Epoch 7/10
+31247/31247 [==============================] - ETA: 0s - loss: 1.2536 - accuracy: 0.6055INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>31247/31247 [==============================] - 842s 27ms/step - loss: 1.2536 - accuracy: 0.6055 - val_loss: 1.5590 - val_accuracy: 0.5470
+Epoch 8/10
+31247/31247 [==============================] - 834s 26ms/step - loss: 1.2503 - accuracy: 0.6063 - val_loss: 1.5595 - val_accuracy: 0.5460
+Epoch 9/10
+31247/31247 [==============================] - ETA: 0s - loss: 1.2483 - accuracy: 0.6068INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:tensorflow:Assets written to: my_shakespeare_model/assets
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>31247/31247 [==============================] - 839s 27ms/step - loss: 1.2483 - accuracy: 0.6068 - val_loss: 1.5564 - val_accuracy: 0.5504
+Epoch 10/10
+31247/31247 [==============================] - 837s 27ms/step - loss: 1.2461 - accuracy: 0.6073 - val_loss: 1.5680 - val_accuracy: 0.5478
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We have trained our model!</p>
+<p>We will now create a Keras Sequential model, which is a model that we cna use for preprocessing. It adds additional layers where each layer has exactly one input tensor and one output tensor.¹⁰</p>
+<p>One of the layers of our Keras Sequential model is a Lambda layer, which allows us to use arbitrary expresions as a <code>Layer</code> when building Sequential and Functional API models. <code>Lambda</code> layers are used for experimentation or simple operations,¹¹ like the simple neural network model we have built.</p>
 
 </div>
 </div>
@@ -15105,340 +15393,14 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">breast_cancer_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_breast_cancer</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">diabetes_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_diabetes</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">breast_cancer_data</span><span class="o">.</span><span class="n">DESCR</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">breast_cancer_data</span><span class="o">.</span><span class="n">DESCR</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><p>diabetes_data.DESCR</p><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">diabetes_data</span><span class="o">.</span><span class="n">DESCR</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">breast_cancer_data</span><span class="o">.</span><span class="n">feature_names</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">diabetes_data</span><span class="o">.</span><span class="n">feature_names</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">breast_cancer_data</span><span class="o">.</span><span class="n">target_names</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">diabetes_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">diabetes_data</span><span class="o">.</span><span class="n">target</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
-
-<span class="n">breast_cancer_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_breast_cancer</span><span class="p">()</span>
-
-<span class="n">breast_cancer_dataframe</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">breast_cancer_data</span><span class="p">[</span><span class="s1">'data'</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">breast_cancer_data</span><span class="p">[</span><span class="s1">'feature_names'</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">breast_cancer_dataframe</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">breast_cancer_dataframe</span><span class="o">.</span><span class="n">describe</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wine_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_wine</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wine_data</span><span class="o">.</span><span class="n">DESCR</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">wine_data</span><span class="o">.</span><span class="n">DESCR</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wine_data</span><span class="o">.</span><span class="n">feature_names</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wine_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
-
-<span class="n">wine_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_wine</span><span class="p">()</span>
-
-<span class="n">wine_dataframe</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">wine_data</span><span class="p">[</span><span class="s1">'data'</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">wine_data</span><span class="p">[</span><span class="s1">'feature_names'</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wine_dataframe</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wine_dataframe</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">shakespeare_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">text_vec_layer</span><span class="p">,</span>
+    <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">X</span><span class="p">:</span> <span class="n">X</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># no &lt;PAD&gt; or &lt;UNK&gt; tokens</span>
+    <span class="n">model</span>
+<span class="p">])</span>
 </pre></div>
 
      </div>
@@ -15453,8 +15415,226 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Discussion:-Basic-Data-Exploration-with-Python-library-Pandas">Discussion: Basic Data Exploration with Python library Pandas<a class="anchor-link" href="#Discussion:-Basic-Data-Exploration-with-Python-library-Pandas">&#182;</a></h2><p>I believe that the command wine_dataframe.head() creates a table for the elements on the database, and apply headers based on the attributes of the data stored.</p>
-<p>The command wine_dataframe.describe() describes some statistics of the dataset.</p>
+<p>We can now use the model to predict the next character in a sentence.</p>
+<p>Note that the code computes the probability of the next character in the string (sentence) provided in the input (in this case, <code>To be or not to b</code>) and predicts ("chooses") the most probable character.</p>
+<p>To do all of these computations, the model uses the encoded dataset, so it will need to refer back to our vectorised text layer (<code>text_vec_layer</code>).</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_proba</span> <span class="o">=</span> <span class="n">shakespeare_model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="s2">"To be or not to b"</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_proba</span><span class="p">)</span>  <span class="c1"># choose the most probable character ID</span>
+<span class="n">text_vec_layer</span><span class="o">.</span><span class="n">get_vocabulary</span><span class="p">()[</span><span class="n">y_pred</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>1/1 [==============================] - 1s 520ms/step
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&#39;e&#39;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We will now ensure that our model generates a variety of outputs, instead of generating the same words over and over. We will do this by sampling the next character randomly, with a probability equal to the estimated probability.</p>
+<p>The <code>categorical()</code> function will sample random class indices, given the class log probabilities (logits).¹²</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">log_probas</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">([[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]])</span>  <span class="c1"># probas = 50%, 40%, and 10%</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">categorical</span><span class="p">(</span><span class="n">log_probas</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># draw 8 samples</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&lt;tf.Tensor: shape=(1, 8), dtype=int64, numpy=array([[0, 1, 0, 2, 1, 0, 0, 1]])&gt;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We will now define the function <code>next_char</code>, introducing a <code>temperature</code> number by which we can divide the logits.</p>
+<p>We can tweak the <code>temperature</code> number in our model. A temperature close to zero will favour high-probability characters, while higher temperatures will result in more random outputs.¹²</p>
+<p>We will play with the temperature further below to see the different results.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">next_char</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">y_proba</span> <span class="o">=</span> <span class="n">shakespeare_model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">text</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">rescaled_logits</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_proba</span><span class="p">)</span> <span class="o">/</span> <span class="n">temperature</span>
+    <span class="n">char_id</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">categorical</span><span class="p">(</span><span class="n">rescaled_logits</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">text_vec_layer</span><span class="o">.</span><span class="n">get_vocabulary</span><span class="p">()[</span><span class="n">char_id</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The following function, <code>extend_text</code>, will call <code>next_char</code> to generate the next character and add it to our input text.¹²</p>
+<p>We can change hte <code>n_chars</code> value from <code>50</code> to whatever number of characters we want for our output. If you do so, remember to run the code again.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">extend_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">n_chars</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_chars</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="n">next_char</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">temperature</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We will add the following code to ensure reproducibility every time the code is run:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># extra code – ensures reproducibility on CPU</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We have successfully created a simple neural network model! We will see how it works in the following section.</p>
 
 </div>
 </div>
@@ -15466,7 +15646,299 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Discussion:-Thinking-about-data-bias">Discussion: Thinking about data bias<a class="anchor-link" href="#Discussion:-Thinking-about-data-bias">&#182;</a></h2>
+<h1 id="7.-Presenting-the-solution:-Generating-Text">7. Presenting the solution: Generating Text<a class="anchor-link" href="#7.-Presenting-the-solution:-Generating-Text">&#182;</a></h1><p>Now that we have created our model, we can finally use it.</p>
+<p>We have provided three different quotes from Shakespeare:</p>
+<ul>
+<li>“To be, or not to be“ – <em>Hamlet</em> (Act III, Scene I).</li>
+<li>“The lady doth protest too much“ – <em>Hamlet</em> (Act III, Scene I).</li>
+<li>“Uneasy is the head that wears a crown“– <em>Henry IV, Part 2</em> (Act III, Scene I).</li>
+</ul>
+<p>However, you can replace these with any text. It doesn't even need to be Shakespeare quotes! Using all kinds of texts may yield some funny results.</p>
+<p>You can also tinker with the temperatures. The examples below have set the temperature to <code>0.01</code>, <code>1</code> and <code>100</code> respectively. Change them to any number you wish.</p>
+<p>Remember that a temperature close to 0 will return high-probability characters, so the higher the temperature, the more random the output will be.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">extend_text</span><span class="p">(</span><span class="s2">"To be, or not to be"</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>1/1 [==============================] - 0s 116ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 22ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 26ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 26ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 30ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 27ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 27ms/step
+1/1 [==============================] - 0s 26ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+To be, or not to be a man of the strong strange
+and the strong for th
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">extend_text</span><span class="p">(</span><span class="s2">"The lady doth protest too much"</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 26ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 26ms/step
+1/1 [==============================] - 0s 26ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 22ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 26ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 23ms/step
+The lady doth protest too much
+giffors will but go, and hereof and reason within
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">extend_text</span><span class="p">(</span><span class="s2">"Uneasy is the head that wears a crown"</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 22ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 25ms/step
+1/1 [==============================] - 0s 23ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+1/1 [==============================] - 0s 24ms/step
+Uneasy is the head that wears a crowng ,mt&#39;&amp;o3g:ady-$
+wh!nse?pws&amp;ert--vgerdjw?c-y-ewznj
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Do you recognise Shakespeare in all of these outputs?</p>
+
 </div>
 </div>
 </div>
@@ -15477,15 +15949,99 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>First I would explore and understand how the data in the datasets I'm using was generated. Once I understand the potential biases, I would create a strategy to pre-process the data or obtain additional data, and an Exploratory Data Analysis strategy.</p>
-<p>I would consider using datasets and creating an open model, so I can make it publicly available for data scrutiny.</p>
-<p>I would balance any data procedent from reviews or social media posts with data obtained from a representative sample of people that would not have shared their opinion unprompted (through a survey, for example).</p>
-<p>Another similar approach would be balancing responses to popular items (e.g. in recommendation systems) with prompting responses for items without a known rating, as well as randomising the way these are presented, or using propensity weighting techniques.</p>
-<p>I would also seek to balance the data collected for the model by collecting data from demographics not represented in the initial datasets.</p>
+<h1 id="8.-Launch,-monitor-and-maintain-the-system">8. Launch, monitor and maintain the system<a class="anchor-link" href="#8.-Launch,-monitor-and-maintain-the-system">&#182;</a></h1><p>Once our solution is ready for production and we have tested that it answers our questions or solves our problems, it is time to release it to a wider audience. We could present this solution on a dedicated website, or upload our Jupyter notebook to Kaggle, Google Colaboratory, or GitHub. We can make a nice presentation or UX explaining why our solution achieves our objectives, as well as explaining what worked, what did not, our assumptions, and the limitations o out solution.</p>
+<p>We would usually write monitoring code to check the live performance of our model regularly and receive alerts when the performance drops.</p>
+<p>We will skip this last step for this model, but it is very important in models that are critical for internal or external workflows. Think about ChatGPT – if the model were to degrade over time and no one paid attention to its performance, it would generate unexpected results eventually, impacting the quality of its answers and user trust.</p>
 
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="9.-Critical-Reflection">9. Critical Reflection<a class="anchor-link" href="#9.-Critical-Reflection">&#182;</a></h1><p>This model is a great example of a simple, yet effective that anyone with little experience with neural networks can follow and achieve impressive results in just a few hours.</p>
+<p>When evaluating the model, it will become apparent that it will often generate meaningless, albeit grammatically correct, results. When adjusting the character count in the <code>extend_text</code> function to <code>100</code>, setting the <code>temperature</code> to <code>1</code>, and using the prompt <code>The lady doth protest too much</code>, I got the following text in one occasion:</p>
+
+<pre><code>The lady doth protest too much
+and discontent the heart soon not, as name.
+
+rutland:
+he sat him make else;
+come, but obeir'd hope 
+
+</code></pre>
+<p>These lines look like taken from Shakespeare's plays but, except for "the lady doth protest too much", the lines have been generated by the model. On closer inspection, it is difficult to find meaning on them. This contrasts with the results generated by large language models (LLMs) such as ChatGPT or HuggingChat, which in many times could pass as human-generated.</p>
+<p>Adjusting the temperature of the model will generate disparate results. For example, adjusting the character count in the <code>extend_text</code> function to <code>100</code>, setting the <code>temperature</code> to <code>0.01</code> and using the prompt <code>To be, or not to be</code> will <strong>always</strong> generate the following output, regardless of the amount of times we run the code:</p>
+
+<pre><code>To be, or not to be a word:
+i will not say 'tis not so i will be a word:
+i will not say 'tis not so i will be a word:
+i
+
+</code></pre>
+<p>When setting the temperature to <code>1</code>, the results will be different every time we run the code. That is also the case when we set the temperature to <code>100</code>, although the randomness of the characters will be very visible.</p>
+<p>When testing the model using a temperature of <code>100</code>, and the prompt <code>To be, or not to be</code> (with a character count of 100), I got the following output in one occasion:</p>
+
+<pre><code>Uneasy is the head that wears a crown&amp;vm:o'ns3li$,zou!3iigarrbia
+</code></pre>
+<p>n?p-!o;yffstu:u fescbhrhpmflkpn'ojhgeuwt?o!r.r?is3f
+rgabtfd$nperuvdov.t</p>
+<p>To get an output that answers our question <em>"How would Shakespeare reply to any text-based prompt?"</em> we need to find the adequate temperature: too low a number, and the model will always answer with the same words, reminding us of Jack Torrance in <em>The Shining</em>, rather than William Shakespeare; too high a number, however, will generate gibberish.</p>
+<p>This specific model, as it has been trained using quotes from Shakespeare, will likely suffer from the same biases than the source material. Moreover, if the dataset includes variants and emendations, the model may replicate some of the bias introduced by scholars that have made those changes.¹³ To understand if the model reproduces these biases, we could explore the source dataset and compare with critical interpretations or annotations of the plays covered.</p>
+<p>As all of Shakespeare's works are in the public domain, this model does not breach any author's intellectual property when using Shakespeare's data. This would not apply to any annotations or derivative works that may be subjected to copyright. It is important that we ensure that we utilise data that we have permission to utilise, and whenever necessary, that we appropriately attribute ownership.</p>
+<p>This is a simple model that can be adapted to different solutions and data types. For example, it could be used to explore a language's history, including the grammar and vocabulary on any given time. We could digitise (using OCR technologies, for example) and prepare data from different sources from a distinctive period in time, similarly to the way in which we prepared the Shakespeare data. We can then use this vectorised data to train the model, and allow the model to learn how a language was written during said period. This method could be useful to understand the evolution of a language's grammar and spelling, and it could be a fun tool for philological studies.</p>
+<p>Naturally, if we use the model for different purposes, there will be different ethical concerns that we will need to take into consideration. The source of the data must be carefully selected, understanding any historical bias and procuring that we don't introduce any bias (selection or otherwise) or that we use any private or sensitive data that could cause harm in individuals, groups or the society as a whole. We should take every precaution to ensure that we do not perpetuate bias, oppresion or harm.</p>
+<p>There is no one-size-fits-all solution and every purpose will come with its unique set of challenges that we will need to carefully address.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Bibliography">Bibliography<a class="anchor-link" href="#Bibliography">&#182;</a></h1><ol>
+<li><strong>Géron, Aurélien</strong>, <em>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems</em>, 7th Release.Second edition; updated for Tensor Flow2 (Beijing Boston Farnham Sebastopol Tokyo: O’Reilly, 2020)</li>
+<li><strong>Bons, Vincent</strong>, ‘Building a Text Generation Model from Scratch’, <em>Wingedsheep: Artificial Intelligence Blog</em>, 2022 <a href="https://wingedsheep.com/building-a-language-model/">https://wingedsheep.com/building-a-language-model/</a> [accessed 9 December 2023]; <strong>Géron, Aurélien</strong>, ‘Natural Language Processing with RNNs and Attention’, in <em>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems</em>, Third edition (Beijing Boston Farnham Sebastopol Tokyo: O’Reilly, 2023), pp. 577–634</li>
+<li><strong>Yegulalp, Serdar</strong>, ‘What Is TensorFlow? The Machine Learning Library Explained’, <em>InfoWorld</em>, 2022 <a href="https://www.infoworld.com/article/3278008/what-is-tensorflow-the-machine-learning-library-explained.html">https://www.infoworld.com/article/3278008/what-is-tensorflow-the-machine-learning-library-explained.html</a> [accessed 9 December 2023]</li>
+<li><strong>mCoding</strong>, ‘Answer to “What Does This Tensorflow Message Mean? Any Side Effect? Was the Installation Successful?”’, <em>Stack Overflow</em>, 2020 <a href="https://stackoverflow.com/a/65333085">https://stackoverflow.com/a/65333085</a> [accessed 9 December 2023]</li>
+<li>‘Tf.Keras.Layers.TextVectorization  |  TensorFlow v2.14.0’, <em>TensorFlow v2.14.0</em>, 2023 <a href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/TextVectorization">https://www.tensorflow.org/api_docs/python/tf/keras/layers/TextVectorization</a> [accessed 10 December 2023]; ‘Working with Preprocessing Layers | TensorFlow Core’, <em>TensorFlow</em>, 2023 <a href="https://www.tensorflow.org/guide/keras/preprocessing_layers">https://www.tensorflow.org/guide/keras/preprocessing_layers</a> [accessed 10 December 2023]</li>
+<li><strong>Tirendaz AI</strong>, ‘Text Generation with TensorFlow’, <em>Kaggle</em>, 2023 <a href="https://kaggle.com/code/tirendazacademy/text-generation-with-tensorflow">https://kaggle.com/code/tirendazacademy/text-generation-with-tensorflow</a> [accessed 10 December 2023]</li>
+<li><strong>Chawla, Avi</strong>, ‘Why Is It Important To Shuffle Your Dataset Before Training An ML Model’, <em>Daily Dose of Data Science</em>, 2023 <a href="https://www.blog.dailydoseofds.com/p/why-is-it-important-to-shuffle-your">https://www.blog.dailydoseofds.com/p/why-is-it-important-to-shuffle-your</a> [accessed 10 December 2023]</li>
+<li><strong>Kabaar, Sofien</strong>, ‘Answer to “What Is the Purpose of Shuffling the Training Data before Feeding It into a Neural Network?”’, <em>Quora</em>, 2023 <a href="https://www.quora.com/What-is-the-purpose-of-shuffling-the-training-data-before-feeding-it-into-a-neural-network">https://www.quora.com/What-is-the-purpose-of-shuffling-the-training-data-before-feeding-it-into-a-neural-network</a> [accessed 10 December 2023]</li>
+<li><strong>Scale Team, Barrett Williams, and Marwan Mattar</strong>, ‘Training and Building Machine Learning Models: The Foundational Guide’, <em>Scale</em>, 2022 <a href="https://scale.com/customers/model-training-building">https://scale.com/customers/model-training-building</a> [accessed 9 December 2023]</li>
+<li>‘The Sequential Model | TensorFlow Core’, <em>TensorFlow</em>, 2023 <a href="https://www.tensorflow.org/guide/keras/sequential_model">https://www.tensorflow.org/guide/keras/sequential_model</a> [accessed 10 December 2023]</li>
+<li><strong>Keras Team</strong>, ‘Keras Documentation: Lambda Layer’, <em>Keras</em> <a href="https://keras.io/api/layers/core_layers/lambda/">https://keras.io/api/layers/core_layers/lambda/</a> [accessed 10 December 2023]</li>
+<li><strong>Géron, Aurélien</strong>, ‘Natural Language Processing with RNNs and Attention’, in <em>Hands-on Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems</em>, Third edition (Beijing Boston Farnham Sebastopol Tokyo: O’Reilly, 2023), pp. 577–634</li>
+<li><strong>Gatta, Carla Della</strong>, ‘Confronting Bias and Identifying Facts: Teaching Resistance Through Shakespeare’, in <em>Teaching Social Justice Through Shakespeare: Why Renaissance Literature Matters Now</em>, ed. by Hillary Eklund and Wendy Beth Hyman, 2019, p. 167.</li>
+</ol>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div>
 </body>
 
